@@ -1,0 +1,120 @@
+Preparing your terminal...
+[cloudshell-user@ip-10-0-177-153 ~]$ Try these commands to get started:
+aws help  or  aws <command> help  or  aws <command> --cli-auto-prompt
+[cloudshell-user@ip-10-0-177-153 ~]$ curl -fsSL https://rpm.nodesource.com/setup_14.x | sudo bash 
+
+## Installing the NodeSource Node.js 14.x repo...
+
+
+## Inspecting system...
+
++ rpm -q --whatprovides redhat-release || rpm -q --whatprovides centos-release || rpm -q --whatprovides cloudlinux-release || rpm -q --whatprovides sl-release || rpm -q --whatprovides fedora-release
++ uname -m
+
+## Confirming "el7-x86_64" is supported...
+
++ curl -sLf -o /dev/null 'https://rpm.nodesource.com/pub_14.x/el/7/x86_64/nodesource-release-el7-1.noarch.rpm'
+
+## Downloading release setup RPM...
+
++ mktemp
++ curl -sL -o '/tmp/tmp.X3owmB8LYZ' 'https://rpm.nodesource.com/pub_14.x/el/7/x86_64/nodesource-release-el7-1.noarch.rpm'
+
+## Installing release setup RPM...
+
++ rpm -i --nosignature --force '/tmp/tmp.X3owmB8LYZ'
+
+## Cleaning up...
+
++ rm -f '/tmp/tmp.X3owmB8LYZ'
+
+## Checking for existing installations...
+
++ rpm -qa 'node|npm' | grep -v nodesource
+
+## Run `sudo yum install -y nodejs` to install Node.js 14.x and npm.
+## You may run dnf if yum is not available:
+     sudo dnf install -y nodejs
+## You may also need development tools to build native addons:
+     sudo yum install gcc-c++ make
+## To install the Yarn package manager, run:
+     curl -sL https://dl.yarnpkg.com/rpm/yarn.repo | sudo tee /etc/yum.repos.d/yarn.repo
+     sudo yum install yarn
+
+[cloudshell-user@ip-10-0-177-153 ~]$ sudo yum install -y nodejs
+Loaded plugins: ovl, priorities
+amzn2-core                                                                                                                                                          | 3.7 kB  00:00:00     
+nodesource                                                                                                                                                          | 2.5 kB  00:00:00     
+nodesource/x86_64/primary_db                                                                                                                                        |  62 kB  00:00:00     
+Package matching 2:nodejs-14.21.1-1nodesource.x86_64 already installed. Checking for update.
+Nothing to do
+[cloudshell-user@ip-10-0-177-153 ~]$ mkdir app 
+[cloudshell-user@ip-10-0-177-153 ~]$ cd app
+[cloudshell-user@ip-10-0-177-153 app]$ mkdir public && mkdir server
+[cloudshell-user@ip-10-0-177-153 app]$ cd public
+[cloudshell-user@ip-10-0-177-153 public]$ wget https://awsmc-dd.s3.ap-south-1.amazonaws.com/index.html
+--2022-11-30 16:50:51--  https://awsmc-dd.s3.ap-south-1.amazonaws.com/index.html
+Resolving awsmc-dd.s3.ap-south-1.amazonaws.com (awsmc-dd.s3.ap-south-1.amazonaws.com)... 52.219.160.134
+Connecting to awsmc-dd.s3.ap-south-1.amazonaws.com (awsmc-dd.s3.ap-south-1.amazonaws.com)|52.219.160.134|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 2525 (2.5K) [text/html]
+Saving to: ‘index.html’
+
+100%[=================================================================================================================================================>] 2,525       --.-K/s   in 0s      
+
+2022-11-30 16:50:51 (203 MB/s) - ‘index.html’ saved [2525/2525]
+
+[cloudshell-user@ip-10-0-177-153 public]$ wget https://awsmc-dd.s3.ap-south-1.amazonaws.com/index.js
+--2022-11-30 16:50:51--  https://awsmc-dd.s3.ap-south-1.amazonaws.com/index.js
+Resolving awsmc-dd.s3.ap-south-1.amazonaws.com (awsmc-dd.s3.ap-south-1.amazonaws.com)... 52.219.160.134
+Connecting to awsmc-dd.s3.ap-south-1.amazonaws.com (awsmc-dd.s3.ap-south-1.amazonaws.com)|52.219.160.134|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 3193 (3.1K) [application/javascript]
+Saving to: ‘index.js’
+
+100%[=================================================================================================================================================>] 3,193       --.-K/s   in 0s      
+
+2022-11-30 16:50:51 (45.2 MB/s) - ‘index.js’ saved [3193/3193]
+
+[cloudshell-user@ip-10-0-177-153 public]$ cd ..
+[cloudshell-user@ip-10-0-177-153 app]$ cd server
+[cloudshell-user@ip-10-0-177-153 server]$ wget https://awsmc-dd.s3.ap-south-1.amazonaws.com/package.json
+--2022-11-30 16:51:10--  https://awsmc-dd.s3.ap-south-1.amazonaws.com/package.json
+Resolving awsmc-dd.s3.ap-south-1.amazonaws.com (awsmc-dd.s3.ap-south-1.amazonaws.com)... 52.219.160.134
+Connecting to awsmc-dd.s3.ap-south-1.amazonaws.com (awsmc-dd.s3.ap-south-1.amazonaws.com)|52.219.160.134|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 384 [application/json]
+Saving to: ‘package.json’
+
+100%[=================================================================================================================================================>] 384         --.-K/s   in 0s      
+
+2022-11-30 16:51:10 (14.3 MB/s) - ‘package.json’ saved [384/384]
+
+[cloudshell-user@ip-10-0-177-153 server]$ wget https://awsmc-dd.s3.ap-south-1.amazonaws.com/server.js
+--2022-11-30 16:51:10--  https://awsmc-dd.s3.ap-south-1.amazonaws.com/server.js
+Resolving awsmc-dd.s3.ap-south-1.amazonaws.com (awsmc-dd.s3.ap-south-1.amazonaws.com)... 52.219.160.134
+Connecting to awsmc-dd.s3.ap-south-1.amazonaws.com (awsmc-dd.s3.ap-south-1.amazonaws.com)|52.219.160.134|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 1301 (1.3K) [application/javascript]
+Saving to: ‘server.js’
+
+100%[=================================================================================================================================================>] 1,301       --.-K/s   in 0s      
+
+2022-11-30 16:51:10 (131 MB/s) - ‘server.js’ saved [1301/1301]
+
+[cloudshell-user@ip-10-0-177-153 server]$ npm install
+npm WARN deprecated querystring@0.2.0: The querystring API is considered Legacy. new code should use the URLSearchParams API instead.
+
+added 113 packages, and audited 114 packages in 8s
+
+19 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+npm notice 
+npm notice New major version of npm available! 8.15.0 -> 9.1.2
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v9.1.2
+npm notice Run npm install -g npm@9.1.2 to update!
+npm notice 
+[cloudshell-user@ip-10-0-177-153 server]$ node server.js
+Server Started on Port 3000. Press Ctrl+C to Quit
